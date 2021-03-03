@@ -1,4 +1,5 @@
 <?php $this->extend('layout/header')?>
+
 <?php $this->section('content')?>
 <section class="content">
     
@@ -36,8 +37,8 @@
                         <td><?= $no++?></td>
                         <td><?=$item['kompetensi_keahlian']?></td>
                         <td>
-                          <a href="<?php echo base_url()?>/master/ruangan/edit/<?=$item['id_kk']?>"><button class="btn btn-sm btn-primary btnEdit"><i class="fa fa-plus"></i> Edit</button></a> 
-                          <button class="btn btn-sm btn-danger btnEdit" attr-id="<?=$item['id_kk']?>" ><i class="fa fa-trash"></i> Hapus</button>  
+                          <a href="<?php echo base_url()?>/master/kompetensi-keahlian/edit/<?=$item['id_kk']?>"><button class="btn btn-sm btn-primary btnEdit"><i class="fa fa-plus"></i> Edit</button></a> 
+                          <button class="btn btn-sm btn-danger btnHps" attr-id="<?=$item['id_kk']?>" ><i class="fa fa-trash"></i> Hapus</button>  
                         </td>
                       </tr>
                   <?php endforeach;?>
@@ -55,9 +56,69 @@
 
     </section>
 
+<div id="confirmDelete" title="Konfirmasi"></div>
+
 <?php $this->endsection();?>
 <?php $this->section('footer')?>
 <script type="text/javascript">
-$('#dataTable').DataTable()
+$(document).ready(function(){
+        $("#confirmDelete").dialog({
+                modal: true,
+                bgiframe: true,
+                autoOpen: false
+            });
+});
+$('#dataTable').on('click','.btnHps',function(b){
+        b.preventDefault();
+        let id= $(this).closest('tr').find('td .btnHps').attr('attr-id');
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Data yang dihapus tidak bisa direcovery!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya!',
+            cancelButtonText: 'Batal'
+          }).then((result) => {
+            if (result.value) {
+             
+              $.ajax({
+                type    : 'POST',
+                url     : '<?=base_url();?>/master/kompetensi-keahlian/hapus',
+                data    : {
+                  id_kk : id
+                },
+                success   : function(data){
+                  if(data.status){
+                    Swal.fire(
+                      'Berhasil',
+                      data.pesan,
+                      'success'
+                    );
+                    setTimeout(function(a){
+                      location.reload();
+                    },2000)
+                  }else{
+                    Swal.fire(
+                      'Gagal',
+                      data.pesan,
+                      'error'
+                    )
+                  }
+                }
+              });
+              
+              
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+              )
+            }
+          })
+    });
+
+$('#dataTable').DataTable();
+
 </script>
 <?php $this->endsection()?>
