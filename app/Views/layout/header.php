@@ -27,8 +27,9 @@
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>/vendor/almasaeed2010/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
   <link rel="stylesheet" href="<?php echo base_url();?>/vendor/almasaeed2010/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <!-- bootstrap wysihtml5 - text editor -->
-  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>/vendor/almasaeed2010/adminlte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>/vendor/almasaeed2010/adminlte/bower_components/select2/dist/css/select2.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -638,6 +639,7 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>/vendor/almasaeed2010/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+<script src="<?php echo base_url();?>/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 <!-- InputMask -->
 <script src="<?php echo base_url();?>/js/notify.js"></script>
 <?php echo $this->renderSection('footer');?>

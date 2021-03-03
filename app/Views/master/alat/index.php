@@ -1,5 +1,4 @@
 <?php $this->extend('layout/header')?>
-
 <?php $this->section('content')?>
 <section class="content">
     
@@ -10,10 +9,10 @@
             <div class="box-header">
               <i class="fa fa-table"></i>
 
-              <h3 class="box-title">Daftar KOMPETENSI KEAHLIAN</h3>
+              <h3 class="box-title">Referensi Jenis alat</h3>
 
               <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
-                  <a href="<?=base_url()?>/master/kompetensi-keahlian/tambah">
+                  <a href="<?=base_url()?>/master/alat/tambah">
                       <button class="btn btn-primary btn-sm">
                         <i class="fa fa-plus"></i> Tambah
                       </button>
@@ -25,20 +24,20 @@
                 <thead>
                   <tr>
                       <th>NO</th>
-                      <th>NAMA KOMPETENSI KEAHLIAN</th>
+                      <th>NAMA JENIS ALAT</th>
                       <th>AKSI</th>
                   </tr>
                 </thead>
                 <tbody>
                   <?php
                     $no = 1; 
-                    foreach($kompetensi as $item):?>
+                    foreach($jenis_alat as $item):?>
                       <tr>
                         <td><?= $no++?></td>
-                        <td><?=$item['kompetensi_keahlian']?></td>
+                        <td><?=$item['nama_alat']?></td>
                         <td>
-                          <a href="<?php echo base_url()?>/master/kompetensi-keahlian/edit/<?=$item['id_kk']?>"><button class="btn btn-sm btn-primary btnEdit"><i class="fa fa-plus"></i> Edit</button></a> 
-                          <button class="btn btn-sm btn-danger btnHps" attr-id="<?=$item['id_kk']?>" ><i class="fa fa-trash"></i> Hapus</button>  
+                          <a href="<?php echo base_url()?>/master/alat/edit/<?=$item['id_alat']?>"><button class="btn btn-sm btn-primary btnEdit"><i class="fa fa-plus"></i> Edit</button></a> 
+                          <button class="btn btn-sm btn-danger btnEdit" attr-id="<?=$item['id_alat']?>" ><i class="fa fa-trash"></i> Hapus</button>  
                         </td>
                       </tr>
                   <?php endforeach;?>
@@ -56,26 +55,9 @@
 
     </section>
 
-<div id="confirmDelete" title="Konfirmasi"></div>
-
 <?php $this->endsection();?>
 <?php $this->section('footer')?>
 <script type="text/javascript">
-$(document).ready(function(){
-        $("#confirmDelete").dialog({
-                modal: true,
-                bgiframe: true,
-                autoOpen: false
-            });
-});
-$('#dataTable').on('click','.btnHps',function(b){
-        b.preventDefault();
-        let id_tahapan= $(this).closest('tr').find('td .btnHps').attr('attr-id');
-        alert('tombol d klik');
-        //confirmDelete(id_tahapan);
-    });
-
-$('#dataTable').DataTable();
-
+$('#dataTable').DataTable()
 </script>
 <?php $this->endsection()?>
