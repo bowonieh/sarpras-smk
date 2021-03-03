@@ -50,6 +50,7 @@ $routes->group('master',['filter'=>'auth','filter'=>'adminonly'],function($route
 	$routes->add('kompetensi-keahlian/(:any)','KompetensikeahlianController::$1');
 	$routes->add('alat','Jenisalat::index');
 	$routes->add('alat/(:any)','Jenisalat::$1');
+	$routes->add('prasarana-ruang','PrasaranaController::index');
 
 });
 /*

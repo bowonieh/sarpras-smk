@@ -102,4 +102,25 @@ class KompetensikeahlianController extends BaseController
 
 		}
 	}
+	public function hapus(){
+        try {
+            $id = $this->request->getPost('id_kk');
+            $del = $this->kk->where(array('id_kk' => $id))
+                ->delete();
+            if ($del) {
+				$output = [
+					'status'	=> true,
+					'pesan'		=> 'Kompetensi keahlian berhasil dihapus'
+				];
+            } else {
+				$output = [
+					'status'	=> false,
+					'pesan'		=> 'Kompetensi keahlian gagal dihapus'
+				];
+            }
+			return $this->response->setJSON($output);
+        }catch(Exceptions $e){
+
+		}
+	}	
 }

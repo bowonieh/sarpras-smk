@@ -70,9 +70,52 @@ $(document).ready(function(){
 });
 $('#dataTable').on('click','.btnHps',function(b){
         b.preventDefault();
-        let id_tahapan= $(this).closest('tr').find('td .btnHps').attr('attr-id');
-        alert('tombol d klik');
-        //confirmDelete(id_tahapan);
+        let id= $(this).closest('tr').find('td .btnHps').attr('attr-id');
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Data yang dihapus tidak bisa direcovery!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya!',
+            cancelButtonText: 'Batal'
+          }).then((result) => {
+            if (result.value) {
+             
+              $.ajax({
+                type    : 'POST',
+                url     : '<?=base_url();?>/master/kompetensi-keahlian/hapus',
+                data    : {
+                  id_kk : id
+                },
+                success   : function(data){
+                  if(data.status){
+                    Swal.fire(
+                      'Berhasil',
+                      data.pesan,
+                      'success'
+                    );
+                    setTimeout(function(a){
+                      location.reload();
+                    },2000)
+                  }else{
+                    Swal.fire(
+                      'Gagal',
+                      data.pesan,
+                      'error'
+                    )
+                  }
+                }
+              });
+              
+              
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire(
+                'Cancelled',
+                'Your imaginary file is safe :)',
+                'error'
+              )
+            }
+          })
     });
 
 $('#dataTable').DataTable();
