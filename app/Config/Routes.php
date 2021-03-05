@@ -55,6 +55,7 @@ $routes->group('master',['filter'=>'auth','filter'=>'adminonly'],function($route
 });
 $routes->group('detil',['filter'=>'auth'],function($routes){
 	$routes->add('alat-kompetensi/(:any)','DetilController::kompetensi/$1');
+	$routes->add('alat','DetilController::alat/$1');
 });
 /*
  * --------------------------------------------------------------------
