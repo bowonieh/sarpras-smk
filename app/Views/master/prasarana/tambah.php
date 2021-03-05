@@ -13,12 +13,6 @@
             <div class="box-body">
             <form id="formTambahData" enctype="multipart/form-data">
               <div class="box-body">
-              
-                <div class="form-group">
-                  <label for="kompetensiKeahlian">KOMPETENSI KEAHLIAN</label>
-                  <select name='kompetensi_keahlian' class="form-control kompetensi_keahlian"></select>
-                  
-                </div>
                 <div class="form-group">
                   <label for="jenisRuangan">JENIS RUANGAN</label>
                   <select name='id_area' class="form-control ruangan"></select>

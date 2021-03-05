@@ -23,8 +23,7 @@
               <table id="dataTable" class="table dataTable table-hovered table-bordered">
                 <thead>
                   <tr>
-                      <th>NO</th>
-                      <th>NAMA</th>
+                      <th>NAMA ALAT</th>
                       <th>KOMPETENSI KEAHLIAN</th>
                       <th>RUANGAN</th>
                       <th>AKSI</th>
@@ -35,10 +34,9 @@
                     $no = 1; 
                     foreach($alat_ruang as $item):?>
                       <tr>
-                        <td><?= $no++?></td>
                         <td><?=$item['nama_alat']?></td>
                         <td><?=$item['kompetensi_keahlian']?></td>
-                        <td><?=$item['ruang_area']?></td>
+                        <td><?=$item['nama_ruang']?></td>
                         <td>
                           <a href="<?php echo base_url()?>/master/ruangan/edit/<?=$item['id_alat_ruang']?>"><button class="btn btn-sm btn-primary btnEdit"><i class="fa fa-plus"></i> Edit</button></a> 
                           <button class="btn btn-sm btn-danger btnEdit" attr-id="<?=$item['id_alat_ruang']?>" ><i class="fa fa-trash"></i> Hapus</button>  
@@ -46,6 +44,7 @@
                       </tr>
                   <?php endforeach;?>
                 </tbody>
+                
               </table>
             </div>
             <!-- /.chat -->
@@ -62,6 +61,42 @@
 <?php $this->endsection();?>
 <?php $this->section('footer')?>
 <script type="text/javascript">
-$('#dataTable').DataTable()
+ /*
+ $('#dataTable thead tr').clone(true).appendTo( '#dataTable thead' );
+ $('#dataTable thead tr:eq(1) th').each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+    */
+
+var table = $('#dataTable').DataTable(
+  {
+    lengthChange: false,
+    searching: true,
+       /* initComplete: function () {
+            // Apply the search
+            this.api().columns().every( function () {
+                var that = this;
+ 
+                $( 'input', this.footer() ).on( 'keyup change clear', function () {
+                    if ( that.search() !== this.value ) {
+                        that
+                            .search( this.value )
+                            .draw();
+                    }
+                } );
+            } );
+        }*/
+    }
+);
 </script>
 <?php $this->endsection()?>

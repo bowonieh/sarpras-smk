@@ -20,8 +20,8 @@
                   
                 </div>
                 <div class="form-group">
-                  <label for="jenisRuangan">JENIS RUANGAN</label>
-                  <select name='id_area' class="form-control ruangan"></select>
+                  <label for="jenisRuangan">NAMA RUANGAN</label>
+                  <select name='id_ruang' class="form-control ruangan"></select>
                 </div>
                 <div class="form-group">
                   <label for="jenisAlat">JENIS ALAT</label>
@@ -107,7 +107,7 @@ $('.kompetensi_keahlian').select2({
 $('.ruangan').select2({
   ajax: {
     type: 'POST',
-    url: '<?=base_url();?>/referensi/ruangan',
+    url: '<?=base_url();?>/referensi/prasarana',
     dataType: 'json'
     // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
   }

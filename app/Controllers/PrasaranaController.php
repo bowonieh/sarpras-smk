@@ -20,6 +20,15 @@ class PrasaranaController extends BaseController
 	public function index()
 	{
 		//
+		$dt = $this->prasarana
+				->select('id_ruang,nama_ruang,jr.ruang_area')
+				->join('jenis_ruang jr','jr.id_area=prasarana_ruang.id_area','inner')
+				->findAll();
+		$data = [
+			'judul' => 'Daftar Ruangan',
+			'ruangan' => $dt
+		];
+		return view('master/prasarana/index',$data);
 	}
 	public function tambah(){
 		$jns = $this->jns_ruang->findAll();
@@ -30,7 +39,6 @@ class PrasaranaController extends BaseController
 	}
 	public function simpan(){
 		$data = [
-			'id_kk'	=> $this->request->getPost('kompetensi_keahlian'),
 			'id_area'	=> $this->request->getPost('id_area'),
 			'nama_ruang'	=> $this->request->getPost('nama_ruang'),
 			'panjang'	=> $this->request->getPost('panjang'),
@@ -44,12 +52,6 @@ class PrasaranaController extends BaseController
 					'rules' => 'required',
 					'errors' => array(
 						'required' => 'Ruang Area tidak boleh kosong',
-					)
-				),
-				'kompetensi_keahlian' => array(
-					'rules'	=> 'required',
-					'errors' => array(
-						'required'	=> 'Kompetensi Keahlian belum dipilih'
 					)
 				),
 				'id_area' => array(
@@ -122,7 +124,21 @@ class PrasaranaController extends BaseController
 	public function edit($id = null){
 
 	}
-	public function hapus($id=null){
-
+	public function hapus(){
+		$id = $this->request->getVar('id_ruang');
+		$a = $this->prasarana->where(array('id_ruang'=>$id))
+			->delete();
+		if($a){
+			$output =[
+				'status'	=> true,
+				'pesan'		=> 'Data Ruang berhasil dihapus'
+			];
+		}else{
+			$output =[
+				'status'	=> false,
+				'pesan'		=> 'Data Ruang gagal dihapus'
+			];
+		}
+		return $this->response->setJSON($output);
 	}
 }
