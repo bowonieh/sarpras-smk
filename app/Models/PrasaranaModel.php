@@ -7,14 +7,14 @@ use CodeIgniter\Model;
 class PrasaranaModel extends Model
 {
 	protected $DBGroup              = 'default';
-	protected $table                = 'prasaranas';
-	protected $primaryKey           = 'id';
+	protected $table                = 'prasarana_ruang';
+	protected $primaryKey           = 'id_ruang';
 	protected $useAutoIncrement     = true;
 	protected $insertID             = 0;
 	protected $returnType           = 'array';
 	protected $useSoftDelete        = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = [];
+	protected $allowedFields        = ['id_area','nama_ruang','panjang','lebar','rasio','kapasitas','luasan','gambar'];
 
 	// Dates
 	protected $useTimestamps        = false;
@@ -22,7 +22,7 @@ class PrasaranaModel extends Model
 	protected $createdField         = 'created_at';
 	protected $updatedField         = 'updated_at';
 	protected $deletedField         = 'deleted_at';
-
+/*
 	// Validation
 	protected $validationRules      = [];
 	protected $validationMessages   = [];
@@ -39,4 +39,5 @@ class PrasaranaModel extends Model
 	protected $afterFind            = [];
 	protected $beforeDelete         = [];
 	protected $afterDelete          = [];
+*/
 }

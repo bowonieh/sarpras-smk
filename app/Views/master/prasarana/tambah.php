@@ -13,32 +13,24 @@
             <div class="box-body">
             <form id="formTambahData" enctype="multipart/form-data">
               <div class="box-body">
+                <div class="form-group">
+                  <label for="jenisRuangan">JENIS RUANGAN</label>
+                  <select name='id_area' class="form-control ruangan"></select>
+                </div>
+                <div class="form-group">
+                  <label for="jenisAlat">NAMA RUANGAN</label>
+                  <input type="text" name="nama_ruang" class="form-control" />
+                  <input type="hidden" name="id_ruang" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="panjangRuang">Panjang (m)</label>
+                  <input type="number" name="panjang" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label for="lebarRuang">Lebar (m)</label>
+                  <input type="number" name="lebar" class="form-control" />
+                </div>
               
-                <div class="form-group">
-                  <label for="kompetensiKeahlian">KOMPETENSI KEAHLIAN</label>
-                  <select name='kompetensi_keahlian' class="form-control kompetensi_keahlian"></select>
-                  
-                </div>
-                <div class="form-group">
-                  <label for="jenisRuangan">NAMA RUANGAN</label>
-                  <select name='id_ruang' class="form-control ruangan"></select>
-                </div>
-                <div class="form-group">
-                  <label for="jenisAlat">JENIS ALAT</label>
-                  <select name='id_alat' class="form-control id_alat"></select>
-                </div>
-                <div class="form-group">
-                  <label for="kompetensiKeahlian">RASIO</label>
-                  <input type="text" name="rasio" class="form-control"/>
-                </div>
-                <div class="form-group">
-                  <label for="deskRipsi">DESKRIPSI</label>
-                  <textarea class="form-control deskRipsi" name="deskripsi" id="deskRipsi"></textarea>
-                </div>
-                <div class="form-group">
-                  <label for="keterangan">KETERANGAN</label>
-                  <textarea class="form-control deskRipsi" name="keterangan" id="keterangan"></textarea>
-                </div>
                 <div style="position:relative;">
                           <a class='btn btn-primary' href='javascript:;'>
                               Choose File...
@@ -83,7 +75,7 @@
       success: function(data){
         if(data.success){
           $.notify(data.pesan,'success');
-          setTimeout(function(){ window.location.href = '../alat' }, 2000);
+          setTimeout(function(){ window.location.href = '<?=base_url()?>/master/prasarana-ruang' }, 2000);
         }else{
           $.notify(data.pesan,'error');
         }
@@ -93,8 +85,6 @@
 
 </script>
 
-<?php $this->endsection();?>
-<?php $this->section('footer')?>
 <script type="text/javascript">
 $('.kompetensi_keahlian').select2({
   ajax: {
@@ -107,18 +97,11 @@ $('.kompetensi_keahlian').select2({
 $('.ruangan').select2({
   ajax: {
     type: 'POST',
-    url: '<?=base_url();?>/referensi/prasarana',
+    url: '<?=base_url();?>/referensi/ruangan',
     dataType: 'json'
     // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
   }
 });
-$('.id_alat').select2({
-  ajax: {
-    type: 'POST',
-    url: '<?=base_url();?>/referensi/alat',
-    dataType: 'json'
-    // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
-  }
-});
+
 </script>
 <?php $this->endsection();?>

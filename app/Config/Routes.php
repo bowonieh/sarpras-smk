@@ -51,7 +51,11 @@ $routes->group('master',['filter'=>'auth','filter'=>'adminonly'],function($route
 	$routes->add('alat','Jenisalat::index');
 	$routes->add('alat/(:any)','Jenisalat::$1');
 	$routes->add('prasarana-ruang','PrasaranaController::index');
-
+	$routes->add('prasarana-ruang/(:any)','PrasaranaController::$1');
+});
+$routes->group('detil',['filter'=>'auth'],function($routes){
+	$routes->add('alat-kompetensi/(:any)','DetilController::kompetensi/$1');
+	$routes->add('alat','DetilController::alat/$1');
 });
 /*
  * --------------------------------------------------------------------

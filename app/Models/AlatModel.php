@@ -14,7 +14,7 @@ class AlatModel extends Model
 	protected $returnType           = 'array';
 	protected $useSoftDelete        = false;
 	protected $protectFields        = true;
-	protected $allowedFields        = ['id_kk','id_area','id_alat','deskripsi','rasio','ilustrasi_alat'
+	protected $allowedFields        = ['id_kk','id_ruang','id_alat','deskripsi','rasio','ilustrasi_alat'
 										,'level_tek','level_keterampilan'
 										];
 

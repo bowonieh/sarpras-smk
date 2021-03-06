@@ -147,7 +147,7 @@
           </ul>
         </li>
         <li>
-                <a href="<?= base_url()?>/alat">
+                <a href="<?= base_url()?>/master/prasarana-ruang">
                   <i class="fa fa-building"></i>
                   <span>Prasarana Ruang</span>
                 

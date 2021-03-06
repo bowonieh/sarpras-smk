@@ -16,7 +16,7 @@ class Alat extends BaseController
 	public function index()
 	{
 		$a = $this->alat
-			->join('jenis_ruang jr','jr.id_area=alat_ruang.id_area','inner')
+			->join('prasarana_ruang pr','pr.id_ruang=alat_ruang.id_ruang','inner')
 			->join('kompetensi_keahlian kk','kk.id_kk=alat_ruang.id_kk','inner')
 			->join('jenis_alat ja','ja.id_alat=alat_ruang.id_alat','inner')
 			->findAll();
@@ -34,64 +34,90 @@ class Alat extends BaseController
 		return view('alat_ruang/tambah',$data);
 	}
 	public function simpan(){
-		//Upload FIle
-		$data = array(
-			'id_kk' => $this->request->getPost('kompetensi_keahlian'),
-			'id_area'				=> $this->request->getPost('id_area'),
-			'id_alat'				=> $this->request->getPost('id_alat'),
-			'rasio'					=> $this->request->getPost('rasio'),
-			'deskripsi'				=> $this->request->getPost('deskripsi'),
-			'keterangan'			=> $this->request->getPost('keterangan')
-		);
-		
-        if (!empty($this->request->getFile('file')->getName())) {
-			$validasi = $this->validate(
-				array(
-					'file' => [
-						'uploaded[file]',
-						'mime_in[file,image/jpg,image/jpeg,image/gif,image/png]',
-						'max_size[file,4096]',
-					]
-				)
-			);
-			$file = $this->request->getFile('file');
-			if($validasi){
-							$file_name = $file->getRandomName();
-                            $file->move('./uploads/alatgambar/',$file_name);
-                            $data = array_push_assoc($data,'ilustrasi_alat',$file_name);
-							$a = $this->alat->save($data);
-							if($a){
-								$output = array(
-									'success'	=> true,
-									'pesan'		=> 'berhasil menyimpan data kedalam database'
-								);
-							}else{
-								$output = array(
-									'success'	=> false,
-									'pesan'		=> 'Gagal saat menyimpan data kedalam database'
-								);
-							}
+        //Upload FIle
+        $data = array(
+            'id_kk' 				=> $this->request->getPost('kompetensi_keahlian'),
+            'id_ruang'				=> $this->request->getPost('id_ruang'),
+            'id_alat'				=> $this->request->getPost('id_alat'),
+            'rasio'					=> $this->request->getPost('rasio'),
+            'deskripsi'				=> $this->request->getPost('deskripsi'),
+            'keterangan'			=> $this->request->getPost('keterangan')
+        );
+        $rules = array(
+                            'id_ruang' => array(
+                                'rules' => 'required',
+                                'errors' => array(
+                                    'required' => 'Ruangan tidak boleh kosong',
+                                )
+                            ),
+                            'kompetensi_keahlian' => array(
+                                'rules' => 'required',
+                                'errors' => array(
+                                    'required' => 'Kompetensi keahlian tidak boleh kosong',
+                                )
+							),
+							'id_alat' => array(
+								'rules' => 'required',
+								'errors' => array(
+									'required' => 'Kompetensi keahlian tidak boleh kosong',
+								)
+							)
 
-			}else{
-				$output = array(
-					'success'	=> false,
-					'pesan'		=> 'Gagal saat mengunggah file'
-				);
-			}
-		}else{
-			$a = $this->alat->save($data);
-			if($a){
-				$output = array(
-					'success'	=> true,
-					'pesan'		=> 'berhasil menyimpan data kedalam database'
-				);
-			}else{
-				$output = array(
-					'success'	=> false,
-					'pesan'		=> 'Gagal saat menyimpan data kedalam database'
-				);
-			}
-		}
+                    );
+        if ($this->validate($rules)):
+            if (!empty($this->request->getFile('file')->getName())) {
+                $validasi = $this->validate(
+                    array(
+                        'file' => [
+                            'uploaded[file]',
+                            'mime_in[file,image/jpg,image/jpeg,image/gif,image/png]',
+                            'max_size[file,4096]',
+                        ]
+                    )
+                );
+                $file = $this->request->getFile('file');
+                if ($validasi) {
+                    $file_name = $file->getRandomName();
+                    $file->move('./uploads/alatgambar/', $file_name);
+                    $data = array_push_assoc($data, 'ilustrasi_alat', $file_name);
+                    $a = $this->alat->save($data);
+                    if ($a) {
+                        $output = array(
+                                        'success'	=> true,
+                                        'pesan'		=> 'berhasil menyimpan data kedalam database'
+                                    );
+                    } else {
+                        $output = array(
+                                        'success'	=> false,
+                                        'pesan'		=> 'Gagal saat menyimpan data kedalam database'
+                                    );
+                    }
+                } else {
+                    $output = array(
+                        'success'	=> false,
+                        'pesan'		=> 'Gagal saat mengunggah file'
+                    );
+                }
+            } else {
+                $a = $this->alat->save($data);
+                if ($a) {
+                    $output = array(
+                        'success'	=> true,
+                        'pesan'		=> 'berhasil menyimpan data kedalam database'
+                    );
+                } else {
+                    $output = array(
+                        'success'	=> false,
+                        'pesan'		=> 'Gagal saat menyimpan data kedalam database'
+                    );
+                }
+            }
+		else:
+			$output = [
+				'success' => false,
+				'pesan'		=> 'kompetensi keahlian dan ruangan tidak boleh kosong'
+			];
+		endif;
 		return $this->response->setJSON($output);
 	}
 	public function edit($id = null){
