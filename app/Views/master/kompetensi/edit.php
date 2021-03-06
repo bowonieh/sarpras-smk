@@ -1,41 +1,29 @@
 <?php $this->extend('layout/header')?>
 <?php $this->section('content')?>
 <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <section class="col-lg-12">
-        <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-form"></i>
-              <h3 class="box-title">Form Edit Data</h3>
-            </div>
-            <div class="box-body">
-            <form id="formEditData">
-              <div class="box-body">
-              
-                <div class="form-group">
-                  <label for="kompetensiKeahlian">Kompetensi Keahlian</label>
-                  <input type="hidden" name="id_kk" value="<?=$data['id_kk']?>"/>
-                  <input type="text" name="kompetensi_keahlian" class="form-control" id="kompetensiKeahlian" value="<?=$data['kompetensi_keahlian']?>" placeholder="Nama Kompetensi Keahlian">
-                </div>
-               
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button class="btn btn-primary btnSimpan">Simpan</button>
-              </div>
-            </form>
-            </div>
-            <!-- /.chat -->
-           
-          </div>
-        </section>
-    
+    <div class="card">
+      <div class="card-header">
       </div>
-   
-      <!-- /.row (main row) -->
+      <div class="card-body">
+        <form id="formEditData">
+                <div class="box-body">
+                
+                  <div class="form-group">
+                    <label for="kompetensiKeahlian">Kompetensi Keahlian</label>
+                    <input type="hidden" name="id_kk" value="<?=$data['id_kk']?>"/>
+                    <input type="text" name="kompetensi_keahlian" class="form-control" id="kompetensiKeahlian" value="<?=$data['kompetensi_keahlian']?>" placeholder="Nama Kompetensi Keahlian">
+                  </div>
+                
+                </div>
+                <!-- /.box-body -->
+
+                <div class="box-footer">
+                  <button class="btn btn-primary btnSimpan">Simpan</button>
+                </div>
+              </form>
+      </div>
+    </div>
+    
 
     </section>
 

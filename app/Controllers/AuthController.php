@@ -26,7 +26,9 @@ class AuthController extends BaseController
 	public function checkLogin(){
 		$username = $this->request->getPost('username');
 		$password = $this->request->getPost('password');
-		$chk = $this->authmodel->where(array('username'=>$username))->first();
+		$chk = $this->authmodel
+				->select('username,password,id_akun,id_jenis_user')
+				->where(array('username'=>$username))->first();
 		if($chk > 0){
 			$psw = $chk['password'];
 			if(password_verify($password,$psw)){
