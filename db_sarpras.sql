@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 03/03/2021 10:39:10
+ Date: 06/03/2021 19:36:44
 */
 
 SET NAMES utf8mb4;
@@ -24,26 +24,28 @@ DROP TABLE IF EXISTS `alat_ruang`;
 CREATE TABLE `alat_ruang` (
   `id_alat_ruang` int NOT NULL AUTO_INCREMENT,
   `id_kk` int DEFAULT NULL,
-  `id_area` int DEFAULT NULL,
+  `id_ruang` int DEFAULT NULL,
   `id_alat` int DEFAULT NULL,
-  `deskripsi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `rasio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `ilustrasi_alat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `deskripsi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rasio` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `ilustrasi_alat` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `level_tek` int DEFAULT NULL,
   `level_keterampilan` int DEFAULT NULL,
   PRIMARY KEY (`id_alat_ruang`),
   KEY `id_kk` (`id_kk`),
-  KEY `id_area` (`id_area`),
   KEY `id_alat` (`id_alat`),
+  KEY `alat_ruang_ibfk_2` (`id_ruang`),
   CONSTRAINT `alat_ruang_ibfk_1` FOREIGN KEY (`id_kk`) REFERENCES `kompetensi_keahlian` (`id_kk`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `alat_ruang_ibfk_2` FOREIGN KEY (`id_area`) REFERENCES `jenis_ruang` (`id_area`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `alat_ruang_ibfk_2` FOREIGN KEY (`id_ruang`) REFERENCES `prasarana_ruang` (`id_ruang`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `alat_ruang_ibfk_3` FOREIGN KEY (`id_alat`) REFERENCES `jenis_alat` (`id_alat`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of alat_ruang
 -- ----------------------------
 BEGIN;
+INSERT INTO `alat_ruang` VALUES (7, 20, 4, 1498, '', '', NULL, NULL, NULL);
+INSERT INTO `alat_ruang` VALUES (13, 20, 4, 4610, '', '', '1614969158_07a6ae9a9b9d0638fb07.jpeg', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -52,7 +54,7 @@ COMMIT;
 DROP TABLE IF EXISTS `jenis_alat`;
 CREATE TABLE `jenis_alat` (
   `id_alat` int NOT NULL AUTO_INCREMENT,
-  `nama_alat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nama_alat` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
@@ -6229,7 +6231,7 @@ COMMIT;
 DROP TABLE IF EXISTS `jenis_ruang`;
 CREATE TABLE `jenis_ruang` (
   `id_area` int NOT NULL AUTO_INCREMENT,
-  `ruang_area` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ruang_area` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
@@ -6307,8 +6309,8 @@ COMMIT;
 DROP TABLE IF EXISTS `jenis_user`;
 CREATE TABLE `jenis_user` (
   `id_jenis_user` int NOT NULL AUTO_INCREMENT,
-  `level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `level` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `keterangan` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_jenis_user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -6326,18 +6328,25 @@ COMMIT;
 DROP TABLE IF EXISTS `kompetensi_keahlian`;
 CREATE TABLE `kompetensi_keahlian` (
   `id_kk` int NOT NULL AUTO_INCREMENT COMMENT ' ',
-  `kompetensi_keahlian` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `kompetensi_keahlian` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id_kk`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kompetensi_keahlian
 -- ----------------------------
 BEGIN;
-INSERT INTO `kompetensi_keahlian` VALUES (18, 'Teknik Ototronik', '2021-03-03 08:04:27', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (20, 'Teknik Komputer dan Jaringan', '2021-03-06 00:20:11', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (21, 'Multimedia', '2021-03-06 00:20:19', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (22, 'Rekayasa Perangkat Lunak', '2021-03-06 00:20:28', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (23, 'Tata Busana', '2021-03-06 00:20:38', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (24, 'Akuntansi Keuangan Lembaga', '2021-03-06 00:20:50', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (25, 'Teknik Kendaraan Ringan Otomotif', '2021-03-06 00:21:01', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (26, 'Teknik Pemesinan', '2021-03-06 00:21:10', NULL, NULL);
+INSERT INTO `kompetensi_keahlian` VALUES (27, 'Teknik Pengelasan', '2021-03-06 00:21:18', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -6347,8 +6356,8 @@ DROP TABLE IF EXISTS `pengguna`;
 CREATE TABLE `pengguna` (
   `id_akun` int NOT NULL AUTO_INCREMENT,
   `id_jenis_user` int DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
@@ -6372,19 +6381,27 @@ DROP TABLE IF EXISTS `prasarana_ruang`;
 CREATE TABLE `prasarana_ruang` (
   `id_ruang` int NOT NULL AUTO_INCREMENT,
   `id_area` int DEFAULT NULL,
-  `nama_ruang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nama_ruang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `panjang` decimal(10,2) DEFAULT NULL,
   `lebar` decimal(10,2) DEFAULT NULL,
   `rasio` int DEFAULT NULL,
   `kapasitas` int DEFAULT NULL,
   `luasan` int DEFAULT NULL,
-  PRIMARY KEY (`id_ruang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `gambar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id_ruang`),
+  KEY `id_area` (`id_area`),
+  CONSTRAINT `prasarana_ruang_ibfk_1` FOREIGN KEY (`id_area`) REFERENCES `jenis_ruang` (`id_area`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of prasarana_ruang
 -- ----------------------------
 BEGIN;
+INSERT INTO `prasarana_ruang` VALUES (4, 15, 'RUANG TKJ 1', 9.00, 8.00, NULL, NULL, NULL, NULL);
+INSERT INTO `prasarana_ruang` VALUES (5, 15, 'RUANG TKJ 2', 9.00, 8.00, NULL, NULL, NULL, NULL);
+INSERT INTO `prasarana_ruang` VALUES (6, 15, 'RUANG RPL 1', 9.00, 8.00, NULL, NULL, NULL, NULL);
+INSERT INTO `prasarana_ruang` VALUES (7, 15, 'RUANG RPL 2', 9.00, 8.00, NULL, NULL, NULL, NULL);
+INSERT INTO `prasarana_ruang` VALUES (9, 15, 'RUANG AUDIO', 5.00, 4.00, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -6393,9 +6410,9 @@ COMMIT;
 DROP TABLE IF EXISTS `tbl_sekolah`;
 CREATE TABLE `tbl_sekolah` (
   `id_sekolah` int NOT NULL AUTO_INCREMENT,
-  `nama_sekolah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `npsn` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `nama_sekolah` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `npsn` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `alamat` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_sekolah`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
