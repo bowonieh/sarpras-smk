@@ -9,10 +9,7 @@
           <h3 class="card-title"><?=$judul?></h3>
 
           <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fas fa-minus"></i></button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fas fa-times"></i></button>
+          <a href="<?=base_url()?>/master/kompetensi-keahlian/tambah"><button class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</button></a>
           </div>
         </div>
         <div class="card-body">
