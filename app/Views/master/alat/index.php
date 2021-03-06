@@ -3,6 +3,7 @@
 <section class="content">
   <div class="card">
     <div class="card-header">
+    <h3 class="card-title"><?=$judul?></h3>
           <div class="card-tools">
             <a href="<?=base_url()?>/master/alat/tambah"><button class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</button></a>
             
