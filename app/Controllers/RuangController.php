@@ -22,7 +22,12 @@ class RuangController extends BaseController
 	public function index()
 	{
 		//
-		$a = $this->ruang->findAll();
+		$a = $this->ruang
+			//->distinct('ruang_area')
+			->select('jenis_ruang.id_area,ruang_area')
+			->groupBy('jenis_ruang.id_area')
+			->join('prasarana_ruang pru','pru.id_area = jenis_ruang.id_area','left')
+			->findAll();
 		$data = [
 			'judul'	=> 'Master Jenis Ruang',
 			'apl'	=> $this->aplikasi,
@@ -94,7 +99,20 @@ class RuangController extends BaseController
 
 		endif;
 	}
-	public function hapus($id = null){
-
+	public function hapus(){
+		$id_area = $this->request->getPost('id_area');
+		$d = $this->ruang->where(array('id_area'=>$id_area))->delete();
+		if($d){
+			$output = [
+				'status'	=> true,
+				'pesan'		=> 'Hapus data berhasil'
+			];
+		}else{
+			$output = [
+				'status'	=> false,
+				'pesan'		=> 'Hapus data Gagal'
+			];
+		}
+		return $this->response->setJSON($output);
 	}
 }

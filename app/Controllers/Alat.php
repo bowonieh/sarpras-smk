@@ -123,4 +123,21 @@ class Alat extends BaseController
 	public function edit($id = null){
 
 	}
+    public function hapus(){
+        $id_alat_ruang = $this->request->getVar('id_alat_ruang');
+        $del = $this->alat->where(array('id_alat_ruang'=>$id_alat_ruang))
+                ->delete();
+        if($del):
+            $output = [
+                'status'    => true,
+                'pesan'     => 'Hapus data berhasil'
+            ];
+        else:
+            $output = [
+                'status'    => false,
+                'pesan'     => 'Hapus data gagal'
+            ];
+        endif;
+        return $this->response->setJSON($output);
+    }
 }
