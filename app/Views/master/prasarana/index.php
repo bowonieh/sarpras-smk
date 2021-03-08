@@ -5,7 +5,12 @@
     <div class="card">
       <div class="card-header">
       <h3 class="card-title"><?=$judul?></h3>
+      <div class="float-right">
+          <a href="<?=base_url()?>/master/prasarana-ruang/tambah">
+          <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah</button>
+        </a>
       </div>
+    </div>
       <div class="card-body">
       <table id="dataTable" class="table dataTable table-hovered table-bordered">
                 <thead>
@@ -46,13 +51,6 @@
 <?php $this->endsection();?>
 <?php $this->section('footer')?>
 <script type="text/javascript">
-$(document).ready(function(){
-        $("#confirmDelete").dialog({
-                modal: true,
-                bgiframe: true,
-                autoOpen: false
-            });
-});
 $('#dataTable').on('click','.btnHps',function(b){
         b.preventDefault();
         let id= $(this).closest('tr').find('td .btnHps').attr('attr-id');

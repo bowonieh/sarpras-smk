@@ -19,6 +19,8 @@
   <link rel="stylesheet" href="<?php echo base_url();?>/node_modules/sweetalert2/dist/sweetalert2.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url()?>/vendor/almasaeed2010/adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>/vendor/select2/select2/dist/css/select2.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>/vendor/almasaeed2010/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
@@ -122,7 +124,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../layout/top-nav-sidebar.html" class="nav-link">
+                <a href="<?=base_url()?>/alat" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Data Barang</p>
                 </a>
@@ -194,6 +196,7 @@
 <!-- AdminLTE App -->
 <script src="<?php echo base_url();?>/node_modules/sweetalert2/dist/sweetalert2.min.js"></script>
 <script src="<?=base_url()?>/vendor/almasaeed2010/adminlte/dist/js/adminlte.min.js"></script>
+<script src="<?=base_url()?>/vendor/select2/select2/dist/js/select2.min.js"></script>
 <script src="<?php echo base_url();?>/js/notify.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>/vendor/almasaeed2010/adminlte/dist/js/demo.js"></script>
