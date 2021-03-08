@@ -1,6 +1,7 @@
 {
     "require": {
         "twbs/bootstrap": "^4.6",
-        "almasaeed2010/adminlte": "~2.4"
+        "almasaeed2010/adminlte": "~3.0",
+        "select2/select2": "^4.0"
     }
 }

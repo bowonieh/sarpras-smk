@@ -1,17 +1,17 @@
 <?php $this->extend('layout/header')?>
 <?php $this->section('content')?>
 <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <section class="col-lg-12">
-        <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-form"></i>
-              <h3 class="box-title">Form Tambah Data</h3>
-            </div>
-            <div class="box-body">
-            <form id="formTambahData" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><?=$judul?></h3>
+        <div class="float-right">
+            <a href="<?=base_url()?>/master/prasarana-ruang/tambah">
+            <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah</button>
+          </a>
+        </div>
+      </div>
+      <div class="card-body">
+      <form id="formTambahData" enctype="multipart/form-data">
               <div class="box-body">
               
                 <div class="form-group">
@@ -39,7 +39,7 @@
                   <label for="keterangan">KETERANGAN</label>
                   <textarea class="form-control deskRipsi" name="keterangan" id="keterangan"></textarea>
                 </div>
-                <div style="position:relative;">
+                <div style="position:relative;" class="form-group">
                           <a class='btn btn-primary' href='javascript:;'>
                               Choose File...
                               <input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file" size="40"  onchange='$("#upload-file-info").html($(this).val());'>
@@ -47,20 +47,19 @@
                           &nbsp;
                           <span class='label label-info' id="upload-file-info"></span>
                   </div>
+
+                  <div class="form-group">
+                  <button class="btn btn-primary btnSimpan">Simpan</button>
+                </div>
               </div>
               <!-- /.box-body -->
 
-              <div class="box-footer">
-                <button class="btn btn-primary btnSimpan">Simpan</button>
-              </div>
+      
             </form>
-            </div>
-            <!-- /.chat -->
-           
-          </div>
-        </section>
-    
       </div>
+    </div>
+      <!-- Main row -->
+      
    
       <!-- /.row (main row) -->
 
@@ -97,6 +96,9 @@
 <?php $this->section('footer')?>
 <script type="text/javascript">
 $('.kompetensi_keahlian').select2({
+  theme: 'bootstrap4',
+	width: 'auto',
+	dropdownAutoWidth: true,
   ajax: {
     type: 'POST',
     url: '<?=base_url();?>/referensi/kompetensi_keahlian',
@@ -105,6 +107,9 @@ $('.kompetensi_keahlian').select2({
   }
 });
 $('.ruangan').select2({
+  theme: 'bootstrap4',
+	width: 'auto',
+	dropdownAutoWidth: true,
   ajax: {
     type: 'POST',
     url: '<?=base_url();?>/referensi/prasarana',
@@ -113,6 +118,9 @@ $('.ruangan').select2({
   }
 });
 $('.id_alat').select2({
+  theme: 'bootstrap4',
+	width: 'auto',
+	dropdownAutoWidth: true,
   ajax: {
     type: 'POST',
     url: '<?=base_url();?>/referensi/alat',

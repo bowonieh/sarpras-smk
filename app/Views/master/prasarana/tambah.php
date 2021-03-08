@@ -1,21 +1,16 @@
 <?php $this->extend('layout/header')?>
 <?php $this->section('content')?>
 <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <section class="col-lg-12">
-        <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-form"></i>
-              <h3 class="box-title">Form Tambah Data</h3>
-            </div>
-            <div class="box-body">
-            <form id="formTambahData" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-title">
+
+      </div>
+      <div class="card-body">
+      <form id="formTambahData" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="form-group">
                   <label for="jenisRuangan">JENIS RUANGAN</label>
-                  <select name='id_area' class="form-control ruangan"></select>
+                  <select id="id_area" name='id_area' class="form-control ruangan"></select>
                 </div>
                 <div class="form-group">
                   <label for="jenisAlat">NAMA RUANGAN</label>
@@ -46,13 +41,9 @@
                 <button class="btn btn-primary btnSimpan">Simpan</button>
               </div>
             </form>
-            </div>
-            <!-- /.chat -->
-           
-          </div>
-        </section>
-    
       </div>
+    </div>
+ 
    
       <!-- /.row (main row) -->
 
@@ -87,6 +78,9 @@
 
 <script type="text/javascript">
 $('.kompetensi_keahlian').select2({
+  theme: 'bootstrap4',
+	width: 'auto',
+	dropdownAutoWidth: true,
   ajax: {
     type: 'POST',
     url: '<?=base_url();?>/referensi/kompetensi_keahlian',
@@ -95,6 +89,9 @@ $('.kompetensi_keahlian').select2({
   }
 });
 $('.ruangan').select2({
+  theme: 'bootstrap4',
+	width: 'auto',
+	dropdownAutoWidth: true,
   ajax: {
     type: 'POST',
     url: '<?=base_url();?>/referensi/ruangan',

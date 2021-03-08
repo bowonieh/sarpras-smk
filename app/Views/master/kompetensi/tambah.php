@@ -1,17 +1,9 @@
 <?php $this->extend('layout/header')?>
 <?php $this->section('content')?>
 <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <section class="col-lg-12">
-        <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-form"></i>
-              <h3 class="box-title">Form Tambah Data</h3>
-            </div>
-            <div class="box-body">
-            <form id="formTambahData">
+    <div class="card">
+      <div class="card-body">
+           <form id="formTambahData">
               <div class="box-body">
               
                 <div class="form-group">
@@ -26,13 +18,10 @@
                 <button class="btn btn-primary btnSimpan">Simpan</button>
               </div>
             </form>
-            </div>
-            <!-- /.chat -->
-           
-          </div>
-        </section>
-    
       </div>
+    </div>
+      <!-- Main row -->
+   
    
       <!-- /.row (main row) -->
 

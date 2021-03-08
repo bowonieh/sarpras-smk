@@ -2,26 +2,18 @@
 
 <?php $this->section('content')?>
 <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <section class="col-lg-12">
-        <div class="box box-success">
-            <div class="box-header">
-              <i class="fa fa-table"></i>
 
-              <h3 class="box-title">Daftar KOMPETENSI KEAHLIAN</h3>
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><?=$judul?></h3>
 
-              <div class="box-tools pull-right" data-toggle="tooltip" title="Status">
-                  <a href="<?=base_url()?>/master/kompetensi-keahlian/tambah">
-                      <button class="btn btn-primary btn-sm">
-                        <i class="fa fa-plus"></i> Tambah
-                      </button>
-                  </a>
-              </div>
-            </div>
-            <div class="box-body">
-              <table id="dataTable" class="table dataTable table-hovered table-bordered">
+          <div class="card-tools">
+          <a href="<?=base_url()?>/master/kompetensi-keahlian/tambah"><button class="btn btn-primary"><i class="fas fa-plus"></i> Tambah Data</button></a>
+          </div>
+        </div>
+        <div class="card-body">
+        <table id="dataTable" class="table dataTable table-hovered table-bordered">
                 <thead>
                   <tr>
                       <th>NO</th>
@@ -44,30 +36,22 @@
                   <?php endforeach;?>
                 </tbody>
               </table>
-            </div>
-            <!-- /.chat -->
-           
-          </div>
-        </section>
-    
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          Footer
+        </div>
+        <!-- /.card-footer-->
       </div>
-   
-      <!-- /.row (main row) -->
+      <!-- /.card -->
 
     </section>
-
 <div id="confirmDelete" title="Konfirmasi"></div>
 
 <?php $this->endsection();?>
 <?php $this->section('footer')?>
 <script type="text/javascript">
-$(document).ready(function(){
-        $("#confirmDelete").dialog({
-                modal: true,
-                bgiframe: true,
-                autoOpen: false
-            });
-});
+
 $('#dataTable').on('click','.btnHps',function(b){
         b.preventDefault();
         let id= $(this).closest('tr').find('td .btnHps').attr('attr-id');
@@ -118,7 +102,9 @@ $('#dataTable').on('click','.btnHps',function(b){
           })
     });
 
-$('#dataTable').DataTable();
+$('#dataTable').DataTable({
+  lengthChange: false,
+});
 
 </script>
 <?php $this->endsection()?>

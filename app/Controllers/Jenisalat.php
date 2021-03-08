@@ -19,7 +19,7 @@ class Jenisalat extends BaseController
 		$alat = $this->jenisAlatModel->findAll();
 		$data = [
 			'jenis_alat'	=> $alat,
-			'judul'			=> ''
+			'judul'			=> 'Master jenis alat'
 		];
 		return view('master/alat/index',$data);
 	}
