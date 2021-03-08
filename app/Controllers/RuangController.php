@@ -15,6 +15,8 @@ class RuangController extends BaseController
 	public function __construct()
 	{
 		$this->ruang = new RuangModel;
+		helper('App');
+		
 		
 	}
 	public function index()
@@ -49,19 +51,25 @@ class RuangController extends BaseController
 			)
 		);
 		if($this->validate($rules)):
+
 			$data = array(
+				'id_area' => '',
 				'ruang_area' => $this->request->getPost('ruang_area')
 			);
-			$d = $this->ruang->insert($data);
+			if(!empty($this->request->getPost('id_area'))){
+				$data['id_area'] = $this->request->getPost('id_area');
+			}
+			//$d = $this->ruang->insert($data);
+			$d = $this->ruang->save($data);
 			if($d){
 				$output = array(
 					'success'	=> true,
-					'pesan'		=> 'tambah data berhasil'
+					'pesan'		=> 'Transaksi berhasil'
 				);
 			}else{
 				$output = array(
 					'success'	=> false,
-					'pesan'		=> 'tambah data Gagal'
+					'pesan'		=> 'Transaksi Gagal'
 				);
 			}
 		else:
@@ -73,7 +81,18 @@ class RuangController extends BaseController
 		return $this->response->setJSON($output);
 	}
 	public function edit($id = null){
+		$a = $this->ruang->where(array('id_area'=>$id));
+		$b = $a->first();
+		if($a->countAllResults() > 0):
+			$data = [
+				'judul' 	=> 'Edit master data jenis ruangan',
+				'ruangan' => $b
+			];
+			return view('master/ruangan/editdata',$data);
+			//echo json_encode($b);
+		else:
 
+		endif;
 	}
 	public function hapus($id = null){
 
