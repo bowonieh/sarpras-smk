@@ -29,9 +29,9 @@
                         <td><?=$item['kompetensi_keahlian']?></td>
                         <td><?=$item['nama_ruang']?></td>
                         <td>
-                          <button class="btn btn-sm btn-green btnDetil" data-toggle="tooltip" data-placement="top" title="Lihat Detil"  attr-id="<?=$item['id_alat_ruang']?>" ><i class="fa fa-eye"></i></button>  
-                          <a href="<?php echo base_url()?>/master/ruangan/edit/<?=$item['id_alat_ruang']?>"><button class="btn btn-sm btn-primary btnEdit" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="fa fa-pencil"></i></button></a> 
-                          <button class="btn btn-sm btn-danger btnEdit" data-toggle="tooltip" data-placement="top" title="Hapus" attr-id="<?=$item['id_alat_ruang']?>" ><i class="fa fa-trash"></i></button>  
+                          <button class="btn btn-sm btn-info btnDetil" data-toggle="tooltip" data-placement="top" title="Lihat Detil"  attr-id="<?=$item['id_alat_ruang']?>" ><i class="fa fa-eye"></i></button>  
+                          <a href="<?php echo base_url()?>/alat/edit/<?=$item['id_alat_ruang']?>"><button class="btn btn-sm btn-primary btnEdit" data-toggle="tooltip" data-placement="top" title="Edit" ><i class="fa fa-pencil-alt"></i></button></a> 
+                          <button class="btn btn-sm btn-danger btnHps" data-toggle="tooltip" data-placement="top" title="Hapus" attr-id="<?=$item['id_alat_ruang']?>" ><i class="fa fa-trash"></i></button>  
                         </td>
                       </tr>
                   <?php endforeach;?>
@@ -68,23 +68,59 @@
 <script type="text/javascript">
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
-})
- /*
- $('#dataTable thead tr').clone(true).appendTo( '#dataTable thead' );
- $('#dataTable thead tr:eq(1) th').each( function (i) {
-        var title = $(this).text();
-        $(this).html( '<input type="text" class="form-control" />' );
+});
  
-        $( 'input', this ).on( 'keyup change', function () {
-            if ( table.column(i).search() !== this.value ) {
-                table
-                    .column(i)
-                    .search( this.value )
-                    .draw();
+
+$('#dataTable').on('click','.btnHps',function(b){
+        b.preventDefault();
+        let id= $(this).closest('tr').find('td .btnHps').attr('attr-id');
+        Swal.fire({
+            title: 'Apakah anda yakin?',
+            text: 'Data yang dihapus tidak bisa direcovery!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Ya!',
+            cancelButtonText: 'Batal'
+          }).then((result) => {
+            if (result.value) {
+             
+              $.ajax({
+                type    : 'POST',
+                url     : '<?=base_url();?>/alat/hapus',
+                data    : {
+                  id_alat_ruang : id
+                },
+                success   : function(data){
+                  if(data.status){
+                    Swal.fire(
+                      'Berhasil',
+                      data.pesan,
+                      'success'
+                    );
+                    setTimeout(function(a){
+                     location.reload();
+                    },2000)
+                  }else{
+                    Swal.fire(
+                      'Gagal',
+                      data.pesan,
+                      'error'
+                    )
+                  }
+                }
+              });
+              
+              
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+              Swal.fire(
+                'Dibatalkan',
+                'Kami tidak jadi menghapus data yang anda pilih :)',
+                'error'
+              )
             }
-        } );
-    } );
-    */
+          })
+    });
+
 $('.btnDetil').on('click',function(a){
   var id_alat_ruang = $(this).attr('attr-id');
     $.ajax({
@@ -95,7 +131,7 @@ $('.btnDetil').on('click',function(a){
               // Add response in Modal body
               $('.modal-title').html('Detil Alat');
               $('.modal-body').html(response);
-             
+                
               // Display Modal
               $('#empModal').modal('show'); 
               }

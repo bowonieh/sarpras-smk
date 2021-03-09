@@ -24,7 +24,10 @@ class Jenisalat extends BaseController
 		return view('master/alat/index',$data);
 	}
 	public function tambah(){
-
+		$data = [
+			'judul' => 'Tambah data jenis alat'
+		];
+		return view('master/alat/tambahdata',$data);
 	}
 	public function edit($id = null){
 
@@ -33,6 +36,25 @@ class Jenisalat extends BaseController
 
 	}
 	public function simpan(){
-
+		$data = [
+			'id_alat' => '',
+			'nama_alat' => $this->request->getVar('nama_alat')
+		];
+		if(!empty($this->request->getVar('id_alat'))){
+			$data['id_alat'] = $this->request->getVar('id_alat');
+		}
+		$ex = $this->jenisAlatModel->save($data);
+		if($ex){
+			$output = [
+				'status'	=> true,
+				'pesan'		=> 'Transaksi berhasil'
+			];
+		}else{
+			$output =[
+				'status'	=> false,
+				'pesan'		=> 'transaksi data gagal'
+			];
+		}
+		return $this->response->setJSON($output);
 	}
 }

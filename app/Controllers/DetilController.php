@@ -22,6 +22,8 @@ class DetilController extends BaseController
 	public function index()
 	{
 		//
+		$id_alat_ruang = $this->request->getVar('id_alat_ruang');
+		
 	}
 	public function kompetensi($id = null){
 		$a = $this->kompetensi->asArray()->where(array('id_kk'=>$id))->countAllResults();
@@ -43,5 +45,20 @@ class DetilController extends BaseController
 	}
 	public function alat(){
 		$id_alat_ruang = $this->request->getVar('id_alat_ruang');
+		$a = $this->alat->where(array('id_alat_ruang'=>$id_alat_ruang))
+			->select('ja.nama_alat,
+				pr.nama_ruang,
+				kk.kompetensi_keahlian,
+				deskripsi, alat_ruang.rasio, ilustrasi_alat, level_tek, level_keterampilan')
+			->join('jenis_alat ja','alat_ruang.id_alat = ja.id_alat','inner')
+			->join('prasarana_ruang pr','pr.id_ruang = alat_ruang.id_ruang','inner')
+			->join('kompetensi_keahlian kk','kk.id_kk=alat_ruang.id_kk','inner')
+			->first();
+		$data = [
+			'judul'	=> $a['nama_alat'],
+			'detil'	=> $a
+		];
+		//echo \json_encode($a);
+		return view('detil/alat',$data);
 	}
 }

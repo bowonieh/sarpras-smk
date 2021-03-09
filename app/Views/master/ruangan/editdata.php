@@ -3,14 +3,16 @@
 <section class="content">
     <div class="card">
       <div class="card-header">
+          <h3 class="card-title"><?=$judul?></h3>
       </div>
       <div class="card-body">
       <form id="formTambahData">
               <div class="box-body">
               
                 <div class="form-group">
-                  <label for="ruangArea">Jenis Ruangan</label>
-                  <input type="text" name="ruang_area" class="form-control" id="RuangArea" placeholder="Nama Ruangan">
+                  <label for="ruangArea">Jenis Ruang</label>
+                  <input type="hidden" name="id_area" value="<?=$ruangan['id_area']?>" />
+                  <input type="text" name="ruang_area" class="form-control" id="RuangArea" value="<?=$ruangan['ruang_area']?>" placeholder="Nama Ruangan">
                 </div>
                
               </div>
@@ -40,12 +42,12 @@
       contentType: false,  
       cache: false,  
       processData:false, 
-      url   : 'simpan',
+      url   : '<?=base_url()?>/master/ruangan/simpan',
       data  : dt,
       success: function(data){
         if(data.success){
           $.notify(data.pesan,'success');
-          setTimeout(function(){ window.location.href = '../ruangan' }, 2000);
+          setTimeout(function(){ window.location.href = '<?=base_url()?>/master/ruangan' }, 2000);
         }else{
           $.notify(data.pesan,'error');
         }

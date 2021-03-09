@@ -11,7 +11,7 @@ class Alat extends BaseController
 	public function __construct()
 	{
 		$this->alat = new AlatModel;
-		helper('App');
+		helper('App','Form');
 	}
 	public function index()
 	{
@@ -36,13 +36,18 @@ class Alat extends BaseController
 	public function simpan(){
         //Upload FIle
         $data = array(
+            'id_alat_ruang'         => '',
             'id_kk' 				=> $this->request->getPost('kompetensi_keahlian'),
             'id_ruang'				=> $this->request->getPost('id_ruang'),
             'id_alat'				=> $this->request->getPost('id_alat'),
             'rasio'					=> $this->request->getPost('rasio'),
             'deskripsi'				=> $this->request->getPost('deskripsi'),
-            'keterangan'			=> $this->request->getPost('keterangan')
+            'level_tek'			=> $this->request->getPost('level_tek'),
+            'level_keterampilan'			=> $this->request->getPost('level_keterampilan'),
         );
+        if(!empty($this->request->getPost('id_alat_ruang'))){
+            $data['id_alat_ruang'] = $this->request->getPost('id_alat_ruang');
+        }
         $rules = array(
                             'id_ruang' => array(
                                 'rules' => 'required',
@@ -121,6 +126,53 @@ class Alat extends BaseController
 		return $this->response->setJSON($output);
 	}
 	public function edit($id = null){
+        $a = $this->alat->where(array('alat_ruang.id_alat_ruang'=>$id));
+        if($a->countAllResults()>0){
+            $b = $this->alat->where(array('alat_ruang.id_alat_ruang'=>$id))
+                ->select('
+                    kk.id_kk,
+                    kk.kompetensi_keahlian,
+                    ja.id_alat,
+                    ja.nama_alat,
+                    pr.id_ruang,
+                    pr.nama_ruang,
+                    
+                    alat_ruang.id_alat_ruang,
+                    alat_ruang.deskripsi,
+                    alat_ruang.rasio,
+                    alat_ruang.level_tek,
+                    alat_ruang.level_keterampilan,
+                    alat_ruang.ilustrasi_alat')
+                ->join('jenis_alat ja','ja.id_alat=alat_ruang.id_alat','inner')
+                ->join('prasarana_ruang pr','pr.id_ruang = alat_ruang.id_ruang')
+                ->join('kompetensi_keahlian kk','kk.id_kk=alat_ruang.id_kk','inner')
+                ->first();
+            $data = [
+                'judul' => 'Edit Data ',
+                'detil' => $b
+            ];
+            return view('alat_ruang/edit',$data);
+            //return $this->response->setJSON($data);
+        }else{
 
+        }
+        //return $this->response->setJSON($output);
 	}
+    public function hapus(){
+        $id_alat_ruang = $this->request->getVar('id_alat_ruang');
+        $del = $this->alat->where(array('id_alat_ruang'=>$id_alat_ruang))
+                ->delete();
+        if($del):
+            $output = [
+                'status'    => true,
+                'pesan'     => 'Hapus data berhasil'
+            ];
+        else:
+            $output = [
+                'status'    => false,
+                'pesan'     => 'Hapus data gagal'
+            ];
+        endif;
+        return $this->response->setJSON($output);
+    }
 }

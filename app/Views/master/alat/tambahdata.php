@@ -9,8 +9,8 @@
               <div class="box-body">
               
                 <div class="form-group">
-                  <label for="ruangArea">Jenis Ruangan</label>
-                  <input type="text" name="ruang_area" class="form-control" id="RuangArea" placeholder="Nama Ruangan">
+                  <label for="ruangArea">Jenis Alat</label>
+                  <input type="text" name="nama_alat" class="form-control" id="namaAlat" placeholder="Jenis Alat">
                 </div>
                
               </div>
@@ -43,7 +43,7 @@
       url   : 'simpan',
       data  : dt,
       success: function(data){
-        if(data.success){
+        if(data.status){
           $.notify(data.pesan,'success');
           setTimeout(function(){ window.location.href = '../ruangan' }, 2000);
         }else{

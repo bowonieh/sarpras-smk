@@ -15,12 +15,19 @@ class RuangController extends BaseController
 	public function __construct()
 	{
 		$this->ruang = new RuangModel;
+		helper('App');
+		
 		
 	}
 	public function index()
 	{
 		//
-		$a = $this->ruang->findAll();
+		$a = $this->ruang
+			//->distinct('ruang_area')
+			->select('jenis_ruang.id_area,ruang_area')
+			->groupBy('jenis_ruang.id_area')
+			->join('prasarana_ruang pru','pru.id_area = jenis_ruang.id_area','left')
+			->findAll();
 		$data = [
 			'judul'	=> 'Master Jenis Ruang',
 			'apl'	=> $this->aplikasi,
@@ -49,19 +56,25 @@ class RuangController extends BaseController
 			)
 		);
 		if($this->validate($rules)):
+
 			$data = array(
+				'id_area' => '',
 				'ruang_area' => $this->request->getPost('ruang_area')
 			);
-			$d = $this->ruang->insert($data);
+			if(!empty($this->request->getPost('id_area'))){
+				$data['id_area'] = $this->request->getPost('id_area');
+			}
+			//$d = $this->ruang->insert($data);
+			$d = $this->ruang->save($data);
 			if($d){
 				$output = array(
 					'success'	=> true,
-					'pesan'		=> 'tambah data berhasil'
+					'pesan'		=> 'Transaksi berhasil'
 				);
 			}else{
 				$output = array(
 					'success'	=> false,
-					'pesan'		=> 'tambah data Gagal'
+					'pesan'		=> 'Transaksi Gagal'
 				);
 			}
 		else:
@@ -73,9 +86,33 @@ class RuangController extends BaseController
 		return $this->response->setJSON($output);
 	}
 	public function edit($id = null){
+		$a = $this->ruang->where(array('id_area'=>$id));
+		$b = $a->first();
+		if($a->countAllResults() > 0):
+			$data = [
+				'judul' 	=> 'Edit master data jenis ruangan',
+				'ruangan' => $b
+			];
+			return view('master/ruangan/editdata',$data);
+			//echo json_encode($b);
+		else:
 
+		endif;
 	}
-	public function hapus($id = null){
-
+	public function hapus(){
+		$id_area = $this->request->getPost('id_area');
+		$d = $this->ruang->where(array('id_area'=>$id_area))->delete();
+		if($d){
+			$output = [
+				'status'	=> true,
+				'pesan'		=> 'Hapus data berhasil'
+			];
+		}else{
+			$output = [
+				'status'	=> false,
+				'pesan'		=> 'Hapus data Gagal'
+			];
+		}
+		return $this->response->setJSON($output);
 	}
 }
