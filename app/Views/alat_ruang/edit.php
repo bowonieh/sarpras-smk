@@ -5,9 +5,7 @@
       <div class="card-header">
         <h3 class="card-title"><?=$judul?></h3>
         <div class="float-right">
-            <a href="<?=base_url()?>/master/prasarana-ruang/tambah">
-            <button class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah</button>
-          </a>
+            <?=$detil['nama_alat']?>
         </div>
       </div>
       <div class="card-body">
@@ -16,34 +14,39 @@
               
                 <div class="form-group">
                   <label for="kompetensiKeahlian">KOMPETENSI KEAHLIAN</label>
-                  <select name='kompetensi_keahlian' class="form-control kompetensi_keahlian"></select>
+                  <select name='kompetensi_keahlian' class="form-control kompetensi_keahlian">
+                        <option value="<?=$detil['id_kk']?>" selected="selected"><?=$detil['kompetensi_keahlian']?></option>
+                  </select>
                   
                 </div>
                 <div class="form-group">
                   <label for="jenisRuangan">NAMA RUANGAN</label>
-                  <select name='id_ruang' class="form-control ruangan"></select>
+                  <select name='id_ruang' class="form-control ruangan">
+                     <option value="<?=$detil['id_ruang']?>" selected="selected"><?=$detil['nama_ruang']?></option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="jenisAlat">JENIS ALAT</label>
-                  <select name='id_alat' class="form-control id_alat"></select>
+                  <input type="hidden" name="id_alat_ruang" value="<?=$detil['id_alat_ruang']?>" />
+                  <select name='id_alat' class="form-control id_alat">
+                  <option value="<?=$detil['id_alat']?>" selected="selected"><?=$detil['nama_alat']?></option>
+                  </select>
                 </div>
                 <div class="form-group">
                   <label for="kompetensiKeahlian">RASIO</label>
-                  <input type="text" name="rasio" class="form-control"/>
-                </div> 
+                  <input type="text" name="rasio" value="<?=$detil['rasio']?>" class="form-control"/>
+                </div>
                 <div class="form-group">
                   <label for="deskRipsi">LEVEL TEK</label>
-                    <input type="text" class="form-control" name="level_tek" />
+                    <input type="number" class="form-control" name="level_tek" value="<?=$detil['level_tek']?>" />
                 </div>
                 <div class="form-group">
                   <label for="deskRipsi">LEVEL KETERAMPILAN</label>
-                    <input type="text" class="form-control" name="level_keterampilan" />
+                    <input type="number" class="form-control" name="level_keterampilan" value="<?=$detil['level_keterampilan']?>" />
                 </div>
                 <div class="form-group">
                   <label for="keterangan">KETERANGAN</label>
-                  <textarea class="form-control deskRipsi" name="deskripsi" id="keterangan">
-    
-                  </textarea>
+                  <textarea class="form-control deskRipsi" name="deskripsi" id="keterangan"><?= esc($detil['deskripsi'])?></textarea>
                 </div>
                 <div style="position:relative;" class="form-group">
                           <a class='btn btn-primary' href='javascript:;'>
@@ -83,12 +86,12 @@
       contentType: false,  
       cache: false,  
       processData:false, 
-      url   : 'simpan',
+      url   : '<?=base_url()?>/alat/simpan',
       data  : dt,
       success: function(data){
         if(data.success){
           $.notify(data.pesan,'success');
-          setTimeout(function(){ window.location.href = '../alat' }, 2000);
+          //setTimeout(function(){ window.location.href = '../alat' }, 2000);
         }else{
           $.notify(data.pesan,'error');
         }
@@ -102,7 +105,7 @@
 <?php $this->section('footer')?>
 <script type="text/javascript">
 $('.kompetensi_keahlian').select2({
-  theme: 'bootstrap4',
+    theme: 'bootstrap4',
 	width: 'auto',
 	dropdownAutoWidth: true,
   ajax: {

@@ -33,6 +33,28 @@
 </div>
 <div class="row">
     <div class="col-sm-4">
+        LEVEL TEK
+    </div>
+    <div class="col-sm-1">
+        :
+    </div>
+    <div class="col-sm-6">
+        <?=$detil['level_tek']?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        LEVEL KETERAMPILAN
+    </div>
+    <div class="col-sm-1">
+        :
+    </div>
+    <div class="col-sm-6">
+        <?=$detil['level_keterampilan']?>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
         Deskripsi
     </div>
     <div class="col-sm-1">
