@@ -3,6 +3,7 @@
 <section class="content">
     <div class="card">
       <div class="card-header">
+          <h3 class="card-title"><?=$judul?></h3>
       </div>
       <div class="card-body">
       <form id="formTambahData">
@@ -10,7 +11,8 @@
               
                 <div class="form-group">
                   <label for="ruangArea">Jenis Alat</label>
-                  <input type="text" name="nama_alat" class="form-control" id="namaAlat" placeholder="Jenis Alat">
+                  <input type="hidden" name="id_alat" value="<?=$detil['id_alat']?>" />
+                  <input type="text" name="nama_alat" class="form-control" value="<?=$detil['nama_alat']?>" id="namaAlat" placeholder="Jenis Alat">
                 </div>
                
               </div>
@@ -40,7 +42,7 @@
       contentType: false,  
       cache: false,  
       processData:false, 
-      url   : 'simpan',
+      url   : '<?=base_url()?>/master/alat/simpan',
       data  : dt,
       success: function(data){
         if(data.status){

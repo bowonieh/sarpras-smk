@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\JenisalatModel;
+use Config\Exceptions;
 
 class Jenisalat extends BaseController
 {
@@ -30,10 +31,38 @@ class Jenisalat extends BaseController
 		return view('master/alat/tambahdata',$data);
 	}
 	public function edit($id = null){
-
+		$a = $this->jenisAlatModel->where(array('id_alat'=>$id))->countAllResults();
+		/*try{*/
+			if($a>0){
+				$b = $this->jenisAlatModel->where(array('id_alat'=>$id))->first();
+				$data = [
+					'judul' => 'Edit Master Data alat',
+					'detil' => $b
+				];
+				return view('master/alat/edit',$data);
+				//return json_encode($data);
+			}else{
+				return redirect()->to(base_url().'/master/alat');
+			}
+		/*}catch(Exceptions $e){
+			$e->message();
+		}*/
 	}
-	public function hapus($id = null){
-
+	public function hapus(){
+		$id_alat = $this->request->getVar('id_alat');
+		$del = $this->jenisAlatModel->where(array('id_alat'=>$id_alat))->delete();
+		if($del){
+			$output = [
+				'status'	=> true,
+				'pesan'		=> 'Hapus Data Berhasil'
+			];
+		}else{
+			$output = [
+				'status'	=> false,
+				'pesan'		=> 'Hapus Data Gagal'
+			];
+		}
+		return $this->response->setJSON($output);
 	}
 	public function simpan(){
 		$data = [

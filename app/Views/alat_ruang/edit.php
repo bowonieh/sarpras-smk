@@ -91,7 +91,7 @@
       success: function(data){
         if(data.success){
           $.notify(data.pesan,'success');
-          //setTimeout(function(){ window.location.href = '../alat' }, 2000);
+          setTimeout(function(){ window.location.href = '<?=base_url()?>/alat' }, 2000);
         }else{
           $.notify(data.pesan,'error');
         }
