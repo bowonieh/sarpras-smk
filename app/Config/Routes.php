@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Dashboard::index',['filter' => 'auth']);
+$routes->get('/rekap','Dashboard::rekap',['filter'=> 'auth']);
 $routes->group('auth',function($routes){
 	
 	$routes->add('login','AuthController::index');
